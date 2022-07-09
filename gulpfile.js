@@ -1,7 +1,7 @@
 /**
  * @fileoverview Gulp file for pcjs.org
  * @author Jeff Parsons <Jeff@pcjs.org>
- * @copyright © 2012-2021 Jeff Parsons
+ * @copyright © 2012-2022 Jeff Parsons
  * @license MIT <https://www.pcjs.org/LICENSE.txt>
  *
  * This file is part of PCjs, a computer emulation software project at <https://www.pcjs.org>.
@@ -110,7 +110,7 @@ var aConcatTasks = [], aCompileTasks = [];
 var aScripts = [];
 
 aMachines.forEach(function(machineID) {
-    if (machineID[0] == '_' || machineID == "shared") return;
+    if (machineID[0] == '@' || machineID == "shared") return;
 
     /**
      * @type {Machine}
@@ -216,7 +216,7 @@ aMachines.forEach(function(machineID) {
                     .pipe(gulpReplace(/(var\s+VERSION\s*=\s*)"[0-9.]*"/g, '$1"' + machineVersion + '"'))
                     .pipe(gulpReplace(/(^|\n)[ \t]*(['"])use strict\2;?/g, ""))
                     .pipe(gulpReplace(/^(import)[ \t]+[^\n]*\n/gm, ""))
-                    .pipe(gulpReplace(/^export[ \t]+(default[ \t]+|\{.*?\};)/gm, ""))
+                    .pipe(gulpReplace(/^export[ \t]+(default[ \t]+|\{.*?\};|)/gm, ""))
                     .pipe(gulpReplace(/^[ \t]*var\s+\S+\s*=\s*require\((['"]).*?\1\)[^;]*;/gm, ""))
                     .pipe(gulpReplace(/^[ \t]*(if\s+\(NODE\)\s*|)module\.exports\s*=\s*[^;]*;/gm, ""))
                     .pipe(gulpReplace(/\/\*\*\s*\*\s*@fileoverview[\s\S]*?\*\/\s*/g, ""))
